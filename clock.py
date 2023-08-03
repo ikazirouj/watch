@@ -4,42 +4,56 @@ import tkinter as tk
 from PIL import Image, ImageTk
 from time import strftime
 
-#define the main window
+#メイン画面の定義
 root = tk.Tk()
-#define the name of main window
+#メイン画面の名前
 root.title("時計だよ")
-#specify the main window size and color
-root.geometry("850x150")
+#メイン画面の色とサイズを指定
+root.geometry("850x180")
 root.configure(bg="white")
-
+#ちゃちゃの画像を読み込み
 chacha = Image.open("chacha.png")
 chacha=chacha.resize((150, 150))
 chacha = ImageTk.PhotoImage(chacha)
 
-#The part visible when the application is launched
+#アプリ起動時に使用するクラス
 class flont:
-    #Clock section display
+    #時計の表示
     def clock():
         global label
         label = Label(root, font=("gTerminal", 100), bg="white", fg="black")
         label.pack(side="left")
 
-    #Clock function
+    #時計機能
     def time():
-        ##Conver data structure to "str" and assign to "clock"
+        ##時刻データをstr型で取得
         clock = strftime("%p %H:%M:%S")
         ##I don't konw! 
         label.config(text=clock)
-        ##start function every 1000 ms
+        ##1000msごとに機能させる
         label.after(1000, flont.time)
 
-    #Display Icons
+    #アイコン表示
     def icon():
         canvas = tk.Canvas(root, bg="white", height=200, width=200, highlightthickness=0)
         canvas.pack(side="left")    
         canvas.create_image(80, 80, image=chacha)
 
+    def btu_press():
+        print("わんわん！")
+
+    def btn_oyatu():
+        print("ｷｬｯｷｬ")
+
+    def btu():
+        bt_b = tk.Button(text="おてて", command=flont.btu_press)
+        bt_o = tk.Button(text="おやつ", command=flont.btn_oyatu)
+        bt_b.place(x=500, y=160)
+        bt_o.place(x=400, y= 160)
+
+
 #execution (e.g. program)
+flont.btu()
 flont.clock()
 flont.time()
 flont.icon()
